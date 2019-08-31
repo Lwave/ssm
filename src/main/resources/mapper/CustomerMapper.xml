@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 该文件编写mybatis中的mapper接口里面的方法提供对应的sql语句 -->
+<mapper namespace="com.ssm.dao.CustomerMapper">
+
+    <!-- 添加客户 -->
+    <insert id="save" parameterType="com.ssm.entity.Customer">
+        INSERT INTO c_customer
+        (name,
+         gender,
+         telephone,
+         address)
+        VALUES (#{name},
+                #{gender},
+                #{telephone},
+                #{address})
+    </insert>
+    <!--查询所有用户-->
+    <select id="selectAll" resultType="com.ssm.entity.Customer">
+        select *
+        from c_customer
+    </select>
+    <!--查询所有用户-->
+    <select id="findById" resultType="com.ssm.entity.Customer">
+        select *
+        from c_customer
+        where id = #{id}
+    </select>
+    <update id="update" parameterType="com.ssm.entity.Customer">
+        update c_customer
+        set name      = #{name},
+            gender    = #{gender},
+            telephone = #{telephone},
+            address   = #{address}
+        where id = #{id}
+    </update>
+    <delete id="delete" parameterType="Integer[]">
+        delete
+        from c_customer
+        <where>
+            id
+            <foreach collection="array" item="id" open="in (" close=")" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </delete>
+</mapper>
